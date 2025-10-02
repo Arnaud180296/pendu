@@ -26,8 +26,8 @@
     function displayMenu(){
         $options = ["Jouer", "Choisir une catégorie", "Quitter"];
 
-        foreach($options as $option){
-            echo "\t -> " . $option.PHP_EOL;
+        foreach($options as $key => $option){
+            echo "\t {$key}-> " . $option.PHP_EOL;
         }
     }
 
