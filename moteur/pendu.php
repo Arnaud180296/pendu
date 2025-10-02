@@ -10,10 +10,33 @@
     */
 
 
+    function chooseCategory(){
+        echo "Choisir une catégorie selon la liste suivante : ".PHP_EOL;
+        //echo "\t->\"Enter\" " . "Aléatoire".PHP_EOL;
+        foreach(getCategory() as $key => $value){
+            echo "\t-> [$key] ". $value.PHP_EOL;
+        }
+
+        return readline("Choix de la catégorie : ");
+    }
     function chooseRandomWord($words, $categoryIndex){
         $wordIndex = array_rand($words[$categoryIndex]);
         return $words[$categoryIndex][$wordIndex];
     }
+
+
+    function displayMenu(){
+        $options = ["Jouer", "Choisir une catégorie", "Quitter"];
+
+        foreach($options as $option){
+            echo "\t -> " . $option.PHP_EOL;
+        }
+    }
+
+    function displayWordProgress(array $word) : string{
+        return implode($word);
+    }
+
 
     function getCategory() : array{
         /**
@@ -22,6 +45,22 @@
         */
         return array_keys(readDictionnary());
     }
+
+
+    function isWordFound(array $word, array $maskedWord) : bool {
+        if(str_contains(implode($word), implode($maskedWord)))
+            return true;
+        return false;
+    }
+
+    function updateProgressWord(array $word, string $userInput, array $maskedWord): array {
+    for ($i = 0; $i < count($word); $i++) {
+        if ($word[$i] === $userInput) {
+            $maskedWord[$i] = $userInput;
+        }
+    }
+    return $maskedWord;
+}
 
     function readDictionnary() : array{
         $fileName =  dirname(__DIR__,1) . DIRECTORY_SEPARATOR . "data" . DIRECTORY_SEPARATOR . "dictionnaire.json";
@@ -32,7 +71,9 @@
         return $words;
     }
 
-    function transformWordToHiddenForm(){
-
+    function transformWordToHiddenForm(array $word){
+        return array_fill(0, count($word), '_');
     }
+
+    
 ?>
