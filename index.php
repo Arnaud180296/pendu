@@ -63,7 +63,7 @@
                 $usedLetters[$counter] = $userInput;
                 $lives--;
                 $counter++;
-
+                
                 echo "La lettre \"$userInput\" ne se trouve pas dans le mot".PHP_EOL;
                 echo "".PHP_EOL;
                 continue;
