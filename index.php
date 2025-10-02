@@ -1,51 +1,89 @@
 <?php 
     declare(strict_types=1);
 
-    /**
-    * Calcule et affiche le double d'une valeur entière ou flottante.
-    *
-    * @param float (nombre flottant ou un entier qui sera converti en flottant) $valeur La valeur devant être doublée.
-    *
-    * @return void (vide) La fonction affiche la valeur doublée mais ne renvoie pas de valeur en dehors de son bloc.
-    */
-
     require __DIR__ . DIRECTORY_SEPARATOR . "moteur" . DIRECTORY_SEPARATOR . "pendu.php";
+    require __DIR__ . DIRECTORY_SEPARATOR . "moteur" . DIRECTORY_SEPARATOR . "utils.php";
     
 
     $play = true;
     while($play){
 
-        //initialisation de la partie
+        #region initialisation de la partie
         $lives = 6;
         $usedLetters = [];
         $words = readDictionnary();
+        $categoryIndex = "";
+        $counter = 1;
 
-
-        //choix de la categorie
-        echo "Choisir une catégorie selon la liste suivante : ".PHP_EOL;
-        foreach(getCategory() as $key => $value){
-            echo "\t-> [$key] ". $value.PHP_EOL;
-        }
-
-        $categoryIndex = readline("Choix de la catégorie : ");
-        
-        //Ca fonctionne si j'ecris le mot de la categorie 
-        //mais j'aimerais pouvoir convertir le texte par le numero d'index
-        if(isset($categoryIndex) && !strlen($categoryIndex) > 0 )
+        #region menu
+        displayMenu();
+        $choice = readline("? : ");
+        if($choice === "quitter"){
+            break;
+        } 
+        else if($choice === "categorie"){ 
+            //Ca fonctionne si j'ecris le mot de la categorie 
+            //mais j'aimerais pouvoir convertir le texte par le numero d'index
+            $categoryIndex = chooseCategory();
+            //$categoryIndex = mapIntegerToString('getCategory', $categoryIndex); //doit transformer l'entier en string correspondant
+        }else{
+            if(isset($categoryIndex) && !strlen($categoryIndex) > 0 )
             $categoryIndex = array_rand($words);
+        }
+        #endregion menu
 
-        echo "CAT : {$categoryIndex}";
-        $wordToFind = chooseRandomWord($words, $categoryIndex);
+        $wordToFind = str_split(chooseRandomWord($words, $categoryIndex));       
+        $maskedWord = transformWordToHiddenForm($wordToFind);
+        #endregion initialisation de la partie
 
-        echo "Voici la solution : {$wordToFind}".PHP_EOL;
 
-        //tant que le mot n'est pas le bon
-        echo "Vies restantes : {$lives}".PHP_EOL;
-        $userInput = substr(readline("Proposez une lettre : "), 0, 1).PHP_EOL;
+        #region solution
+        echo "La catégorie est : {$categoryIndex}".PHP_EOL;
+        echo "Voici la solution : ". implode($wordToFind) .PHP_EOL;
+        #endregion solution
 
+
+        #region boucle de jeu
+        while ($lives != 0 && !isWordFound($wordToFind, $maskedWord) ) {
+            echo "Vies restantes : {$lives}".PHP_EOL;
+            echo "Lettres proposées : [". implode(' - ', $usedLetters) . "]".PHP_EOL;
+            echo "Mot : " . displayWordProgress($maskedWord);
+            echo ("").PHP_EOL;
+            
+            do{
+                $userInput = strtolower(substr(readline("Proposez une lettre : "), 0, 1));
+                if (str_contains(implode($usedLetters), $userInput) || str_contains(implode($maskedWord), $userInput)) {
+                        echo "/!\ \"{$userInput}\" à deja été utilisé /!\\".PHP_EOL;
+                    }
+            } while((str_contains(implode($usedLetters), $userInput) || str_contains(implode($maskedWord), $userInput)));
+
+            echo "" . PHP_EOL;
+
+            if (!str_contains(implode($wordToFind), $userInput)){
+                $usedLetters[$counter] = $userInput;
+                $lives--;
+                $counter++;
+
+                echo "La lettre \"$userInput\" ne se trouve pas dans le mot".PHP_EOL;
+                echo "".PHP_EOL;
+                continue;
+            }
+
+            echo "La lettre \"$userInput\" se trouve dans le mot".PHP_EOL;
+            $maskedWord = updateProgressWord($wordToFind, $userInput, $maskedWord);
+
+            if(isWordFound($wordToFind, $maskedWord))
+                echo "c'est gagné".PHP_EOL;
+
+            echo("").PHP_EOL;
+        }
+        #endregion boucle de jeu
+
+        echo "Le mot etait ". implode($wordToFind) .PHP_EOL;
+
+        #region rejouer
         $play = strtolower(readline("Rejouer ? "));
         if($play == "n"){
-            echo "test";
             $play = false;
         }
 

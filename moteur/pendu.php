@@ -1,16 +1,14 @@
 <?php 
     declare(strict_types=1);
 
-    /**
-    * Calcule et affiche le double d'une valeur entière ou flottante.
-    *
-    * @param float (nombre flottant ou un entier qui sera converti en flottant) $valeur La valeur devant être doublée.
-    *
-    * @return void (vide) La fonction affiche la valeur doublée mais ne renvoie pas de valeur en dehors de son bloc.
-    */
-
-
     function chooseCategory(){
+         /**
+        * Calcule et affiche le double d'une valeur entière ou flottante.
+        *
+        * @param float (nombre flottant ou un entier qui sera converti en flottant) $valeur La valeur devant être doublée.
+        *
+        * @return void (vide) La fonction affiche la valeur doublée mais ne renvoie pas de valeur en dehors de son bloc.
+        */
         echo "Choisir une catégorie selon la liste suivante : ".PHP_EOL;
         //echo "\t->\"Enter\" " . "Aléatoire".PHP_EOL;
         foreach(getCategory() as $key => $value){
