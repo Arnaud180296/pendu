@@ -95,5 +95,23 @@
         "tennis",
         "boxe",
         "natation"
+    ],
+    "pays":[
+        "belgique",
+        "france",
+        "allemagne"
+    ],
+    "clubs de footaball":[
+        "arsenal",
+        "paris saint-germain",
+        "real de madrid"
+    ],
+    "stars de cinema":[
+        "marion cotillard",
+        "will smith",
+        "angelina jolie",
+        "emilia clarke",
+        "Sydney Sweeney",
+        "ester exposito"
     ]
 }
