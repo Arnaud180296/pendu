@@ -47,10 +47,12 @@
 
     function getCategory() : array{
         /**
-        * Renvoie les categories en recupérant les clefs faisant office de séparateur de categories.
+        * Renvoie les categories, triées par ordre alphabetique, en recupérant les clefs faisant office de séparateur de categories.
         * @return array (vide) La fonction renvoie un tableau.
         */
-        return array_keys(readDictionnary());
+        $categories = array_keys(readDictionnary());
+        sort($categories);
+        return $categories;
     }
 
 
