@@ -20,7 +20,7 @@
         $choice = readline("? : ");
         if($choice === "2"){
             break;
-        } 
+        }
         else if($choice === "1"){ 
             //Ca fonctionne si j'ecris le mot de la categorie 
             //mais j'aimerais pouvoir convertir le texte par le numero d'index
