@@ -26,8 +26,8 @@
             if(is_numeric($categoryIndex))
                 $categoryIndex = mapIntegerToString('getCategory', $categoryIndex);
         }else{
-            if(isset($categoryIndex) && !strlen($categoryIndex) > 0 )
-                $categoryIndex = array_rand($words);
+            //if(isset($categoryIndex) && !strlen($categoryIndex) > 0 )
+            $categoryIndex = array_rand($words);
         }
         #endregion menu
         $wordToFind = str_split(chooseRandomWord($words, $categoryIndex));       
