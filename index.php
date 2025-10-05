@@ -22,13 +22,12 @@
             break;
         }
         else if($choice === "1"){ 
-            //Ca fonctionne si j'ecris le mot de la categorie 
-            //mais j'aimerais pouvoir convertir le texte par le numero d'index
-            $categoryIndex = intval(chooseCategory(), 10);
-            $categoryIndex = mapIntegerToString('getCategory', $categoryIndex); //doit transformer l'entier en string correspondant
+            $categoryIndex = chooseCategory();
+            if(is_numeric($categoryIndex))
+                $categoryIndex = mapIntegerToString('getCategory', $categoryIndex);
         }else{
             if(isset($categoryIndex) && !strlen($categoryIndex) > 0 )
-            $categoryIndex = array_rand($words);
+                $categoryIndex = array_rand($words);
         }
         #endregion menu
         $wordToFind = str_split(chooseRandomWord($words, $categoryIndex));       

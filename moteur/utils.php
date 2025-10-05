@@ -8,7 +8,7 @@
         * @return string () retourne une chaine de caractère.
         */
         for ($i=0; $i < count(array_keys($callback())); $i++) { 
-            if($i === $intValue){
+            if($i == $intValue){
                 return $callback()[$i];
             }
         }
