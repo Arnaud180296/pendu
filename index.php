@@ -26,7 +26,6 @@
             if(is_numeric($categoryIndex))
                 $categoryIndex = mapIntegerToString('getCategory', $categoryIndex);
         }else{
-            //if(isset($categoryIndex) && !strlen($categoryIndex) > 0 )
             $categoryIndex = array_rand($words);
         }
         #endregion menu
@@ -34,10 +33,9 @@
         $maskedWord = transformWordToHiddenForm($wordToFind);
         #endregion initialisation de la partie
 
-
-        #region solution
         echo "La catégorie est : {$categoryIndex}".PHP_EOL;
-        echo "Voici la solution : ". implode($wordToFind) .PHP_EOL;
+        #region solution
+        //echo "Voici la solution : ". implode($wordToFind) .PHP_EOL;
         #endregion solution
 
 
