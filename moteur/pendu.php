@@ -6,7 +6,7 @@
         * Affiche la liste des categories disponible et retourne le choix de l'utilisateur. (Non respect du principe de Single Responsability).
         * @return string (chaine) retourne le choix de l'utilisateur sous forme de chaine de caractères.
         */
-        echo "Choisir une catégorie selon la liste suivante : ".PHP_EOL;
+        echo "Choisir une catégorie selon la liste suivante (index / texte): ".PHP_EOL;
         //echo "\t->\"Enter\" " . "Aléatoire".PHP_EOL;
         foreach(getCategory() as $key => $value){
             echo "\t-> [$key] ". $value.PHP_EOL;
